@@ -35,7 +35,7 @@ typedef long double ld;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-template <typename T> using pbds = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
+template <typename T> using pbds = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count()); //mersenne twister engine
 
 void __init_code()
