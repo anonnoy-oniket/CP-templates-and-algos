@@ -57,7 +57,7 @@ int main()
     __init_code();
     auto start = high_resolution_clock::now();
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--) SOLVE();
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop-start);
