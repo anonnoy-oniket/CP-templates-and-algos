@@ -1,11 +1,11 @@
 void err(istream_iterator<string> it)
 {
-    cout<<endl;
+    cerr<<endl;
 }
 template<typename T, typename... Args>
 void err(istream_iterator<string> it, T a, Args... args)
 {
-    cout << *it << " = " << a << " ";
+    cerr << *it << " = " << a << " ";
     err(++it, args...);
 }
 
@@ -78,7 +78,7 @@ ostream &operator <<(ostream &os, unordered_map<T1,T2>&v)
     return os;
 }
 
-#define HERE cout<<"here - "<<__LINE__<<"\n";
+#define HERE cerr<<"here - "<<__LINE__<<"\n";
 #define debug(args...) { string _s = #args; replace(_s.begin(), _s.end(), ',', ' '); stringstream _ss(_s); istream_iterator<string> _it(_ss); err(_it, args); }
 
 //__int128
@@ -95,4 +95,3 @@ ostream &operator <<(ostream &os, unordered_map<T1,T2>&v)
 
 //this memsets by 1e9
 //memset(x,63,sizeof x);
-
