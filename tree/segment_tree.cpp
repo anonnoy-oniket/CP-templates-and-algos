@@ -23,6 +23,7 @@ void build(vector<int> v, int curr, int tl, int tr) {
 
 void update(int curr, int tl, int tr, int idx, int new_val) {
 
+    if (idx < tl || idx > tr) return;
     if (tl == tr)  // tl == tr == idx, which is the last node
     {
         t[curr] = new_val;
@@ -31,8 +32,8 @@ void update(int curr, int tl, int tr, int idx, int new_val) {
 
     int l = 2 * curr, r = 2 * curr + 1;
     int mid = (tl + tr) >> 1;
-    if (idx >= tl && idx <= mid) update(l, tl, mid, idx, new_val);
-    if (idx >= mid + 1 && idx <= r) update(r, mid + 1, tr, idx, new_val);
+    update(l, tl, mid, idx, new_val);
+    update(r, mid + 1, tr, idx, new_val);
     t[curr] = t[l] + t[r];
 }
 
