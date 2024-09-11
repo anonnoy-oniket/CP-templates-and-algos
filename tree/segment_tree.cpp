@@ -1,12 +1,12 @@
 
-const int N = 2e5 + 5; // this might already be defined inside the template
-vector<int> t(N);
+const int N = 1e5 + 5; // this might already be defined inside the template
+ll t[4*N], v[N];
 
 //the tree vector t is 1 based indexed, the main vector v is 0 based indexed
 // curr is the current node of the tree t (1 based indexed)
 // tl and tr are the current nodes range (comes from v, 0 based indexed)
 
-void build(vector<int> v, int curr, int tl, int tr) {
+void build(int curr, int tl, int tr) {
 
     if (tl == tr)
     {
@@ -16,8 +16,8 @@ void build(vector<int> v, int curr, int tl, int tr) {
 
     int l = 2 * curr, r = 2 * curr + 1;
     int mid = (tl + tr) >> 1;
-    build(v, l, tl, mid);
-    build(v, r, mid + 1, tr);
+    build(l, tl, mid);
+    build(r, mid + 1, tr);
     t[curr] = t[l] + t[r];
 }
 
@@ -37,7 +37,7 @@ void update(int curr, int tl, int tr, int idx, int new_val) {
     t[curr] = t[l] + t[r];
 }
 
-int query(int curr, int tl, int tr, int i, int j) {
+ll query(int curr, int tl, int tr, int i, int j) {
 
     if (tr < i || tl > j) return 0;
     if (tl >= i && tr <= j) return t[curr];
@@ -62,11 +62,10 @@ int main()
 
     int n;
     cin >> n;
-    vector<int> v(n);
     for (int i = 0; i < n; i++) cin >> v[i];
 
 
-    build(v, 1, 0, n - 1);
+    build(1, 0, n - 1);
     update(1, 0, n - 1, 3 , 2);
     int ans = query(1, 0, n - 1, 2, 4);
 
