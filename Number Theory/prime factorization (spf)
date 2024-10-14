@@ -1,6 +1,10 @@
 map<int, int> spf(int n) {
     map<int, int> cnt;
-    for (int i = 2; i * i <= n; i++) {
+    while (n % 2 == 0) {
+        cnt[2]++;
+        n /= 2;
+    }
+    for (int i = 3; i * i <= n; i += 2) {
         if (n % i == 0) {
             while (n % i == 0) {
                 cnt[i]++;
@@ -8,8 +12,7 @@ map<int, int> spf(int n) {
             }
         }
     }
-
-    if (n > 1) cnt[n]++;
+    if (n > 2) cnt[n]++;
 
     return cnt;
 }
