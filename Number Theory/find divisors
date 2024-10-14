@@ -11,3 +11,6 @@ vector<int> find_divisors(int n) {
     sort(divisors.begin(), divisors.end());
     return divisors;
 }
+
+
+// complexity O(√n)
