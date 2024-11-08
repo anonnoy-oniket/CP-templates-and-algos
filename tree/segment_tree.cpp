@@ -1,50 +1,45 @@
+const int maxN = 1e5 + 9;
+long long a[maxN], t[4 * maxN];
 
-const int N = 1e5 + 5; // this might already be defined inside the template
-ll t[4*N], v[N];
-
-//the tree vector t is 1 based indexed, the main vector v is 0 based indexed
-// curr is the current node of the tree t (1 based indexed)
-// tl and tr are the current nodes range (comes from v, 0 based indexed)
-
-void build(int curr, int tl, int tr) {
-
-    if (tl == tr)
-    {
-        t[curr] = v[tl];
+void build(int curr, int b, int e) {
+    if (b == e) {
+        t[curr] = a[b];
         return;
     }
-
-    int l = 2 * curr, r = 2 * curr + 1;
-    int mid = (tl + tr) >> 1;
-    build(l, tl, mid);
-    build(r, mid + 1, tr);
-    t[curr] = t[l] + t[r];
+    int mid = (b + e) >> 1, l = 2 * curr, r = (2 * curr) + 1;
+    build(l, b, mid);
+    build(r, mid + 1, e);
+    
+    t[curr] = t[l] + t[r]; // change comes here
 }
 
-void update(int curr, int tl, int tr, int idx, int new_val) {
 
-    if (idx < tl || idx > tr) return;
-    if (tl == tr)  // tl == tr == idx, which is the last node
-    {
+void update(int curr, int b, int e, int i, int new_val) {
+    if (i<b || i>e) {
+        return;
+    }
+    if (b == e) {
         t[curr] = new_val;
         return;
     }
-
-    int l = 2 * curr, r = 2 * curr + 1;
-    int mid = (tl + tr) >> 1;
-    update(l, tl, mid, idx, new_val);
-    update(r, mid + 1, tr, idx, new_val);
-    t[curr] = t[l] + t[r];
+    int mid = (b + e) >> 1, l = 2 * curr, r = (2 * curr) + 1;
+    update(l, b, mid, i, new_val);
+    update(r, mid + 1, e, i, new_val);
+    
+    t[curr] = t[l] + t[r]; // change comes here
 }
 
-ll query(int curr, int tl, int tr, int i, int j) {
 
-    if (tr < i || tl > j) return 0;
-    if (tl >= i && tr <= j) return t[curr];
-
-    int l = 2 * curr, r = 2 * curr + 1;
-    int mid = (tl + tr) >> 1;
-    return query(l, tl, mid, i, j) + query(r, mid + 1, tr, i, j);
+long long query(int curr, int b, int e, int i, int j) {
+    if (e < i || j < b) {
+        return 0;  // change comes here
+    }
+    if (b >= i && e <= j) {
+        return t[curr];
+    }
+    int mid = (b + e) >> 1, l = 2 *curr, r = (2 * curr) + 1;
+    
+    return query(l, b, mid, i, j) + query(r, mid + 1, e, i, j); // change comes here
 }
 
 
