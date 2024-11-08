@@ -1,54 +1,59 @@
 const int maxN = 1e5 + 9;
 long long a[maxN], t[maxN * 4], lazy[maxN * 4];
 
-void push(int n, int b, int e) {
-   if (lazy[n] == 0) {
+void push(int curr, int b, int e) {
+   if (lazy[curr] == 0) {
       return;
    }
-   t[n] += (1LL * (e - b + 1) * lazy[n]);
+   
+   t[curr] += (1LL * (e - b + 1) * lazy[curr]); // change here
+   
    if (b != e) {
-      int l = (2 * n), r = (2 * n) + 1;
-      lazy[l] += lazy[n];
-      lazy[r] += lazy[n];
+      int l = (2 * curr), r = (2 * curr) + 1;
+      lazy[l] += lazy[curr];
+      lazy[r] += lazy[curr];
    }
-   lazy[n] = 0;
+   lazy[curr] = 0;
 }
 
-void build(int n, int b, int e) {
+void build(int curr, int b, int e) {
    if (b == e) {
-      t[n] = a[b];
+      t[curr] = a[b];
       return;
    }
-   int mid = (b + e) / 2, l = (2 * n), r = (2 * n) + 1;
+   int mid = (b + e) / 2, l = (2 * curr), r = (2 * curr) + 1;
    build(l, b, mid);
    build(r, mid + 1, e);
-   t[n] = t[l] + t[r];
+   
+   t[curr] = t[l] + t[r]; // change here
 }
 
-void update(int n, int b, int e, int i, int j, int v) {
-   push(n, b, e);
+void update(int curr, int b, int e, int i, int j, int v) {
+   push(curr, b, e);
    if (e < i || j < b) {
       return;
    }
    if (b >= i && e <= j) {
-      lazy[n] = v;
-      push(n, b, e);
+      lazy[curr] = v;
+      push(curr, b, e);
       return;
    }
-   int mid = (b + e) / 2, l = (2 * n), r = (2 * n) + 1;
+   int mid = (b + e) / 2, l = (2 * curr), r = (2 * curr) + 1;
    update(l, b, mid, i, j, v);
    update(r, mid + 1, e, i, j, v);
-   t[n] = t[l] + t[r];
+   
+   t[curr] = t[l] + t[r]; // change here
 }
 
-long long query(int n, int b, int e, int i, int j) {
-   push(n, b, e);
+long long query(int curr, int b, int e, int i, int j) {
+   push(curr, b, e);
    if (e < i || j < b) {
-      return 0;
+      return 0; // change here
    }
    if (b >= i && e <= j) {
-      return t[n];
+      return t[curr];
    }
-   int mid = (b + e) / 2, l = (2 * n), r = (2 * n) + 1;
-   return query(l, b, mid, i, j) + query(r, mid + 1, e, i, j);
+   int mid = (b + e) / 2, l = (2 * curr), r = (2 * curr) + 1;
+   
+   return query(l, b, mid, i, j) + query(r, mid + 1, e, i, j); // change here
 }
