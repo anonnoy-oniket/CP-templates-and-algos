@@ -10,8 +10,8 @@ void push(int curr, int b, int e) {
    
    if (b != e) {
       int l = (2 * curr), r = (2 * curr) + 1;
-      lazy[l] += lazy[curr];
-      lazy[r] += lazy[curr];
+      lazy[l] += lazy[curr]; //change here
+      lazy[r] += lazy[curr]; //change here
    }
    lazy[curr] = 0;
 }
