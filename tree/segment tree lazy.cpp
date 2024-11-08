@@ -2,7 +2,7 @@ const int maxN = 1e5 + 9;
 long long a[maxN], t[maxN * 4], lazy[maxN * 4];
 
 void push(int curr, int b, int e) {
-   if (lazy[curr] == 0) {
+   if (lazy[curr] == 0) { // change here
       return;
    }
    
@@ -13,7 +13,7 @@ void push(int curr, int b, int e) {
       lazy[l] += lazy[curr]; //change here
       lazy[r] += lazy[curr]; //change here
    }
-   lazy[curr] = 0;
+   lazy[curr] = 0; // change here
 }
 
 void build(int curr, int b, int e) {
